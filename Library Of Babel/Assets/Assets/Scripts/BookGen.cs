@@ -13,7 +13,7 @@ public class BookGen : MonoBehaviour
     Text pageA;
     [SerializeField]
     Text pageB;
-    List<string> book;
+    List<string> book = new List<string>();
     // Start is called before the first frame update
     public List<string> GetBook()
     {

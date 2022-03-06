@@ -52,9 +52,14 @@ public class FPSController : MonoBehaviour
     Text FillerA;
     [SerializeField]
     Text FillerB;
-    BookGen bookGenerator;
+    BookGen bookGenerator = new BookGen();
     List<string> thisbook;
     int pageNum = 0;
+
+    private void Awake()
+    {
+        thisbook = bookGenerator.GetBook();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +70,7 @@ public class FPSController : MonoBehaviour
         m_Jumping = false;
 
         m_MouseLook.Init(transform, m_Camera.transform);
+        thisbook = new List<string>();
     }
 
     // Update is called once per frame
@@ -95,10 +101,10 @@ public class FPSController : MonoBehaviour
             }
         }
         else { tutorialText.SetActive(false); }
-        if(Input.GetKeyUp(KeyCode.Escape) && bookOverlay.activeSelf == true)
+        /*if(Input.GetKeyUp(KeyCode.Escape) && bookOverlay.activeSelf == true)
         {
             bookOverlay.SetActive(false);
-        }
+        }*/
     }
     public void NextPage()
     {
@@ -219,9 +225,14 @@ public class FPSController : MonoBehaviour
             bookOverlay.SetActive(!bookOverlay.activeSelf);
             if (bookOverlay.activeSelf == true)
             {
-                thisbook = bookGenerator.GetBook();
+                Debug.Log(thisbook);
+                Debug.Log(bookGenerator.GetBook());
                 FillerA.text = thisbook[pageNum];
                 FillerB.text = thisbook[pageNum + 1];
+            }
+            else
+            {
+                thisbook = bookGenerator.GetBook();
             }
         }
     }
