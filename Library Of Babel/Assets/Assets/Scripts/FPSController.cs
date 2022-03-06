@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,7 +39,22 @@ public class FPSController : MonoBehaviour
     [SerializeField] private float m_JumpSpeed = 10;
     private bool m_Jumping;
 
+    Ray ray;
+    RaycastHit hit;
+    int layerMask = 1 << 6;
+    int tutCounter = 20;
 
+    [SerializeField]
+    GameObject tutorialText;
+    [SerializeField]
+    GameObject bookOverlay;
+    [SerializeField]
+    Text FillerA;
+    [SerializeField]
+    Text FillerB;
+    BookGen bookGenerator;
+    List<string> thisbook;
+    int pageNum = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,8 +84,34 @@ public class FPSController : MonoBehaviour
         }
 
         m_PreviouslyGrounded = m_CharacterController.isGrounded;
+        ray = m_Camera.ScreenPointToRay(m_LookInput);
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            Debug.Log(hit.collider.name);
+            if(tutCounter > 0)
+            {
+                tutorialText.SetActive(true);
+                tutCounter--;
+            }
+        }
+        else { tutorialText.SetActive(false); }
+        if(Input.GetKeyUp(KeyCode.Escape) && bookOverlay.activeSelf == true)
+        {
+            bookOverlay.SetActive(false);
+        }
     }
-
+    public void NextPage()
+    {
+        pageNum =+ 2;
+        FillerA.text = thisbook[pageNum];
+        FillerB.text = thisbook[pageNum + 1];
+    }
+    public void LastPage()
+    {
+        pageNum = -2;
+        FillerA.text = thisbook[pageNum];
+        FillerB.text = thisbook[pageNum + 1];
+    }
     private void FixedUpdate()
     {
         float speed;
@@ -165,5 +209,20 @@ public class FPSController : MonoBehaviour
     public void OnSprint(InputValue value)
     {
         m_IsWalking = !Convert.ToBoolean(value.Get<Single>());
+    }
+
+    public void OnInteract(InputValue value)
+    {
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            Debug.Log("Read Book");
+            bookOverlay.SetActive(!bookOverlay.activeSelf);
+            if (bookOverlay.activeSelf == true)
+            {
+                thisbook = bookGenerator.GetBook();
+                FillerA.text = thisbook[pageNum];
+                FillerB.text = thisbook[pageNum + 1];
+            }
+        }
     }
 }
