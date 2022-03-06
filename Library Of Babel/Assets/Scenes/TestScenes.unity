@@ -179,13 +179,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646693694196767787, guid: beff3fb0656ef104a9c8183d5426a49f, type: 3}
+      propertyPath: FillerA
+      value: 
+      objectReference: {fileID: 695131860}
+    - target: {fileID: 646693694196767787, guid: beff3fb0656ef104a9c8183d5426a49f, type: 3}
+      propertyPath: FillerB
+      value: 
+      objectReference: {fileID: 1944588653}
+    - target: {fileID: 646693694196767787, guid: beff3fb0656ef104a9c8183d5426a49f, type: 3}
       propertyPath: m_RunSpeed
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 646693694196767787, guid: beff3fb0656ef104a9c8183d5426a49f, type: 3}
       propertyPath: bookOverlay
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 718205763}
     - target: {fileID: 646693694196767787, guid: beff3fb0656ef104a9c8183d5426a49f, type: 3}
       propertyPath: m_WalkSpeed
       value: 3
@@ -877,7 +885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &718205764
 RectTransform:
   m_ObjectHideFlags: 0

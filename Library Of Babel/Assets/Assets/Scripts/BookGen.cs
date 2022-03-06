@@ -19,7 +19,7 @@ public class BookGen : MonoBehaviour
     {
         int pageCharCap = charCap * lineCap;
         string thisPage = "";
-        for(int i = 0; i < 410; i++)
+        for(int i = 0; i < 10; i++)
         {
             for(int j = 0; j < 40; j++)
             {
@@ -29,6 +29,7 @@ public class BookGen : MonoBehaviour
                 }
                 thisPage += "\n";
             }
+            Debug.Log(thisPage);
             book.Add(thisPage);
         }
         return book;

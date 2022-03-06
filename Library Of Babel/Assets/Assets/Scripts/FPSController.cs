@@ -53,8 +53,8 @@ public class FPSController : MonoBehaviour
     [SerializeField]
     Text FillerB;
     BookGen bookGenerator = new BookGen();
-    List<string> thisbook;
-    int pageNum = 0;
+    List<string> thisbook = new List<string>();
+    int pageNum = 1;
 
     private void Awake()
     {
@@ -70,7 +70,6 @@ public class FPSController : MonoBehaviour
         m_Jumping = false;
 
         m_MouseLook.Init(transform, m_Camera.transform);
-        thisbook = new List<string>();
     }
 
     // Update is called once per frame
@@ -93,28 +92,19 @@ public class FPSController : MonoBehaviour
         ray = m_Camera.ScreenPointToRay(m_LookInput);
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
-            Debug.Log(hit.collider.name);
-            if(tutCounter > 0)
-            {
-                tutorialText.SetActive(true);
-                tutCounter--;
-            }
+            tutorialText.SetActive(true);
         }
         else { tutorialText.SetActive(false); }
-        /*if(Input.GetKeyUp(KeyCode.Escape) && bookOverlay.activeSelf == true)
-        {
-            bookOverlay.SetActive(false);
-        }*/
     }
     public void NextPage()
     {
-        pageNum =+ 2;
+        pageNum += 2;
         FillerA.text = thisbook[pageNum];
         FillerB.text = thisbook[pageNum + 1];
     }
     public void LastPage()
     {
-        pageNum = -2;
+        pageNum -= 2;
         FillerA.text = thisbook[pageNum];
         FillerB.text = thisbook[pageNum + 1];
     }
@@ -225,10 +215,10 @@ public class FPSController : MonoBehaviour
             bookOverlay.SetActive(!bookOverlay.activeSelf);
             if (bookOverlay.activeSelf == true)
             {
-                Debug.Log(thisbook);
                 Debug.Log(bookGenerator.GetBook());
                 FillerA.text = thisbook[pageNum];
                 FillerB.text = thisbook[pageNum + 1];
+                Debug.Log(thisbook[1]);
             }
             else
             {
